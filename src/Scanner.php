@@ -184,7 +184,7 @@ class Scanner
      */
     public function setIgnored(array $ignored): self
     {
-        $this->ignored = $ignored;
+        $this->ignored = array_unique($ignored);
 
         return $this;
     }
