@@ -70,12 +70,11 @@ class Scanner
         $this->path = $path;
         $this->phrase = $phrase;
         $this->mode = $mode;
-        $this->ignore = $ignored;
+
+        $ignored[] = $_SERVER['SCRIPT_NAME'];
 
         $this->setExtensions($extensions);
         $this->setIgnored($ignored);
-
-        $this->ignore[] = $_SERVER['SCRIPT_NAME'];
     }
 
     /**
