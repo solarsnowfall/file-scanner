@@ -23,7 +23,7 @@ class Scanner
     /**
      * @var string[]
      */
-    protected array $ignore = [];
+    protected array $ignored = [];
 
     /**
      * @var array
@@ -50,14 +50,14 @@ class Scanner
      * @param string $phrase
      * @param int $mode
      * @param array $extensions
-     * @param array $ignore
+     * @param array $ignored
      */
     public function __construct(
         string $path,
         string $phrase,
         int $mode,
         array $extensions = ['php'],
-        array $ignore = ['vendor']
+        array $ignored = ['vendor']
     ) {
         if (!file_exists($path)) {
             throw new InvalidArgumentException("Path not found: $path");
@@ -70,10 +70,24 @@ class Scanner
         $this->path = $path;
         $this->phrase = $phrase;
         $this->mode = $mode;
-        $this->extensions = $extensions;
-        $this->ignore = $ignore;
+        $this->ignore = $ignored;
+
+        $this->setExtensions($extensions);
+        $this->setIgnored($ignored);
 
         $this->ignore[] = $_SERVER['SCRIPT_NAME'];
+    }
+
+    /**
+     * @param string $extension
+     * @return $this
+     */
+    public function addExtension(string $extension): self
+    {
+        $this->extensions[] = strtolower($extension);
+        $this->extensions = array_unique($this->extensions);
+
+        return $this;
     }
 
     /**
@@ -82,8 +96,8 @@ class Scanner
      */
     public function addIgnored(string $word): self
     {
-        $this->ignore[] = $word;
-        $this->ignore = array_unique($this->ignore);
+        $this->ignored[] = $word;
+        $this->ignored = array_unique($this->ignored);
 
         return $this;
     }
@@ -146,6 +160,23 @@ class Scanner
         } catch (Exception $exception) {
             throw new RuntimeException($exception->getMessage(), $exception->getCode());
         }
+    }
+
+    /**
+     * @param array $extensions
+     * @return $this
+     */
+    public function setExtensions(array $extensions): self
+    {
+        $this->extensions = [];
+
+        foreach ($extensions as $extension) {
+            $this->extensions[] = strtolower($extension);
+        }
+
+        $this->extensions = array_unique($this->extensions);
+
+        return $this;
     }
 
     /**
