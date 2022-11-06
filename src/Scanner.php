@@ -119,7 +119,7 @@ class Scanner
             /** @var SplFileInfo $fileInfo */
             foreach (new RecursiveIteratorIterator($iterator) as $fileInfo) {
 
-                if (!$fileInfo->isFile() || $this->isIgnored($fileInfo)) {
+                if ($this->isIgnored($fileInfo)) {
                     continue;
                 }
 
@@ -166,7 +166,7 @@ class Scanner
      */
     protected function isIgnored(SplFileInfo $fileInfo): bool
     {
-        if (!in_array($fileInfo->getExtension(), $this->extensions)) {
+        if (!$fileInfo->isFile() || !in_array($fileInfo->getExtension(), $this->extensions)) {
             return true;
         }
 
