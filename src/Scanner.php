@@ -217,7 +217,7 @@ class Scanner
      */
     protected function isIgnored(SplFileInfo $fileInfo): bool
     {
-        if (!$fileInfo->isFile() || !in_array($fileInfo->getExtension(), $this->extensions)) {
+        if (!$fileInfo->isFile() || !in_array(strtolower($fileInfo->getExtension()), $this->extensions)) {
             return true;
         }
 
