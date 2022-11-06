@@ -180,6 +180,17 @@ class Scanner
     }
 
     /**
+     * @param array $ignored
+     * @return $this
+     */
+    public function setIgnored(array $ignored): self
+    {
+        $this->ignored = $ignored;
+
+        return $this;
+    }
+
+    /**
      * @return void
      */
     protected function dumpContents(): void
