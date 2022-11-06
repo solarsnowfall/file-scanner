@@ -223,7 +223,7 @@ class Scanner
 
         $pathname = $fileInfo->getPathname();
 
-        foreach ($this->ignore as $word) {
+        foreach ($this->ignored as $word) {
             if (str_contains($pathname, $word)) {
                 return true;
             }
