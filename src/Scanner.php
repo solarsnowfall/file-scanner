@@ -166,13 +166,12 @@ class Scanner
      */
     public function setExtensions(array $extensions): self
     {
+        $extensions = array_unique($extensions);
         $this->extensions = [];
 
         foreach ($extensions as $extension) {
             $this->extensions[] = strtolower($extension);
         }
-
-        $this->extensions = array_unique($this->extensions);
 
         return $this;
     }
