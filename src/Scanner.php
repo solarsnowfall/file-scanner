@@ -77,6 +77,18 @@ class Scanner
     }
 
     /**
+     * @param string $word
+     * @return $this
+     */
+    public function addIgnored(string $word): self
+    {
+        $this->ignore[] = $word;
+        $this->ignore = array_unique($this->ignore);
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function count(): int
