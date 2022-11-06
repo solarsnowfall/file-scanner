@@ -124,8 +124,7 @@ class Scanner
      */
     public function dump(): void
     {
-        $count = $this->count();
-        echo "Found \"{$this->phrase}\": $count\n\n";
+        echo "Found \"{$this->phrase}\": {$this->count()}\n\n";
 
         $this->mode == self::MODE_FILENAME
             ? $this->dumpFilenames()
