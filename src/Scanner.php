@@ -132,7 +132,6 @@ class Scanner
             return $this->count();
 
         } catch (Exception $exception) {
-
             throw new RuntimeException($exception->getMessage(), $exception->getCode());
         }
     }
